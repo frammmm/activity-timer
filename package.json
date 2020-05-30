@@ -1,5 +1,5 @@
 {
-  "name": "frontend-boilerplate",
+  "name": "activity_timer",
   "scripts": {
     "install": "node ./scripts/postinstall.js",
     "serve": "serve -l 3000 ./dist",
