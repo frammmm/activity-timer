@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es5",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
+}

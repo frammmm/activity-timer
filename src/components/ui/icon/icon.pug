@@ -1,0 +1,6 @@
+mixin icon(name)
+  -
+    require(`../assets/icons/${name}.svg`)
+
+  svg
+    use(xlink:href="#" + name)
