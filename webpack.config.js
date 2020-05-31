@@ -184,6 +184,8 @@ module.exports = async () => {
     config.plugins.push(new CssoWebpackPlugin());
     config.plugins.push(new WorkboxPlugin.GenerateSW({
       exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
+      clientsClaim: true,
+      skipWaiting: true
     }));
 
     config.optimization.splitChunks = {

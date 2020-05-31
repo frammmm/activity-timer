@@ -1,0 +1,10 @@
+:root {
+  --page-background: linear-gradient(170deg, #624F42 0%, #4F3F2F 50%, #1C1C1C 150%), linear-gradient(to top, #fff 0%, #000 200%);
+
+  --color-white: #fff;
+  --color-gray-800: #999;
+}
+
+:root.theme-white {
+  --color-white: #000;
+}
