@@ -36,7 +36,7 @@ export default class Timer {
 
   bindEventHandlers (): void {
     this.timer.eventBus.on(['play', 'restart'], this.onTimerStart);
-    this.timer.eventBus.on(['stop', 'pause'], this.onTimerStop);
+    this.timer.eventBus.on(['stop', 'pause', 'reset'], this.onTimerStop);
 
     this.activityDurationInput.addEventListener('input', this.onActivityDurationInputChange);
     this.restDurationInput.addEventListener('input', this.onRestDurationInputChange);
