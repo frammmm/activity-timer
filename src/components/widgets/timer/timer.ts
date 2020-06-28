@@ -87,7 +87,7 @@ export default class Timer {
   }
 
   onTimerStop = (): void => {
-    this.setInputsDisabled(true);
+    this.setInputsDisabled(false);
     this.setToggleButtonDisabled(false);
     this.setToggleButtonIcon(this.icons.play);
   }
