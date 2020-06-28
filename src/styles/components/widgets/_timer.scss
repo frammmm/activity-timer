@@ -1,0 +1,70 @@
+.timer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  width: 450px;
+  min-height: 325px;
+  min-width: 325px;
+  padding: var(--space-125);
+  color: var(--color-text);
+  font-weight: 600;
+  background-color: var(--color-white);
+  border-radius: var(--radius-10);
+  box-shadow: var(--shadow-light-1);
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 5px;
+    z-index: -1;
+    height: 20px;
+    box-shadow: var(--shadow-light-3)
+  }
+
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: calc(50% + 27.5px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  &-input {
+    margin-top: var(--space-1);
+    font-size: 1.5rem;
+    width: 120px;
+  }
+
+  &-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: none;
+
+    &__base {
+      stroke: var(--color-light-500);
+      stroke-linecap: round;
+      stroke-width: 20px;
+    }
+
+    &__filler {
+      stroke: var(--color-orange);
+      stroke-linecap: round;
+      stroke-width: 20px;
+      transition: stroke-dashoffset linear;
+    }
+  }
+}

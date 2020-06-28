@@ -1,0 +1,128 @@
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 24px;
+  border: none;
+  outline: none;
+  transition: .2s ease;
+  transition-property: background-color;
+
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+
+  &.is-large {
+    height: 48px;
+  }
+
+  &.is-round {
+    border-radius: var(--radius-circle);
+  }
+
+  &.is-icon {
+    width: 24px;
+
+    &.is-large {
+      width: 48px;
+    }
+  }
+
+  &.is-red {
+    background: var(--color-red);
+
+    &:hover {
+      background: var(--color-red-darker);
+    }
+  }
+
+  &.is-orange {
+    background: var(--color-orange);
+
+    &:hover {
+      background: var(--color-orange-darker);
+    }
+  }
+
+  &.is-yellow {
+    background: var(--color-yellow);
+
+    &:hover {
+      background: var(--color-yellow-darker);
+    }
+  }
+
+  &.is-green {
+    background: var(--color-green);
+
+    &:hover {
+      background: var(--color-green-darker);
+    }
+  }
+
+  &.is-cyan {
+    background: var(--color-cyan);
+
+    &:hover {
+      background: var(--color-cyan-darker);
+    }
+  }
+
+  &.is-blue {
+    background: var(--color-blue);
+
+    &:hover {
+      background: var(--color-blue-darker);
+    }
+  }
+
+  &.with-shadow {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      opacity: .5;
+    }
+
+    &.is-red {
+      &:after {
+        box-shadow: 0 3px 8px var(--color-red);
+      }
+    }
+
+    &.is-orange {
+      &:after {
+        box-shadow: 0 3px 8px var(--color-orange);
+      }
+    }
+
+    &.is-yellow {
+      &:after {
+        box-shadow: 0 3px 8px var(--color-yellow);
+      }
+    }
+
+    &.is-green {
+      &:after {
+        box-shadow: 0 3px 8px var(--color-green);
+      }
+    }
+
+    &.is-cyan {
+      &:after {
+        box-shadow: 0 3px 8px var(--color-cyan);
+      }
+    }
+
+    &.is-blue {
+      &:after {
+        box-shadow: 0 3px 8px var(--color-blue);
+      }
+    }
+  }
+}

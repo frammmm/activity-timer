@@ -15,4 +15,8 @@ export default class Notification {
 
     this.hasPermission = permission === 'granted';
   }
+
+  static create (content) {
+    new window.Notification(content);
+  }
 }

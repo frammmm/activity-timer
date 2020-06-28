@@ -2,16 +2,37 @@
 @import 'base/fonts';
 @import 'base/variables';
 
-body {
+@import 'utils/display';
+@import 'utils/typography';
+
+@import 'layouts/index';
+
+@import 'components/ui/button';
+@import 'components/ui/input';
+@import 'components/widgets/timer';
+
+html {
   color: var(--color-white);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
   font-variation-settings: 'wdth' 400, 'wght' 98;
-  min-height: 100vh;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 100%;
   background: var(--page-background);
-  background-blend-mode: multiply;
 }
 
 a {
   color: var(--color-gray-800);
   text-decoration: none;
+}
+
+input, button, select, optgroup, textarea {
+  font-size: inherit;
+  font-family: inherit;
 }

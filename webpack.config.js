@@ -9,6 +9,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
@@ -33,7 +34,7 @@ module.exports = async () => {
   const config = {
     devServer: {
       port,
-      quiet: true
+      // quiet: true
     },
 
     devtool: isProduction ? false : 'cheap-module-source-map',
@@ -46,8 +47,8 @@ module.exports = async () => {
 
     output: {
       path: path.join(__dirname, paths.distPath),
-      filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js',
-      chunkFilename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js'
+      filename: isDevelopment ? '[name].js' : '[name].[contenthash:16].js',
+      chunkFilename: isDevelopment ? '[name].js' : '[name].[contenthash:16].js'
     },
 
     resolve: {
@@ -97,7 +98,7 @@ module.exports = async () => {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[contenthash:8].[ext]',
+              name: '[name].[contenthash:16].[ext]',
               outputPath: 'images'
             }
           }
@@ -108,7 +109,7 @@ module.exports = async () => {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[contenthash:8].[ext]',
+              name: '[name].[contenthash:16].[ext]',
               outputPath: 'fonts'
             }
           }
@@ -121,7 +122,7 @@ module.exports = async () => {
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          spriteFilename: 'icons.[hash:8].svg'
+          spriteFilename: 'icons.[hash:16].svg'
         }
       }]
     },
@@ -150,27 +151,27 @@ module.exports = async () => {
         async: !isProduction
       }),
 
-      new FriendlyErrorsWebpackPlugin({
-        compilationSuccessInfo: {
-          messages: [`You application is running here http://localhost:${port}`],
-        }
-      }),
+      // new FriendlyErrorsWebpackPlugin({
+      //   compilationSuccessInfo: {
+      //     messages: [`You application is running here http://localhost:${port}`],
+      //   }
+      // }),
 
       ...pages.map(page => new HtmlWebpackPlugin(page)),
 
       new MiniCssExtractPlugin({
-        filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
-        chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css'
+        filename: isDevelopment ? '[name].css' : '[name].[contenthash:16].css',
+        chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:16].css'
       }),
 
       // Preload fonts
-      new PreloadWebpackPlugin({
-        include: 'allAssets',
-        fileBlacklist: [/^(?!.*woff2).*$/]
-      }),
+      // new PreloadWebpackPlugin({
+      //   include: 'allAssets',
+      //   fileBlacklist: [/^(?!.*woff2).*$/]
+      // }),
 
       new ScriptExtHtmlWebpackPlugin({
-        defaultAttribute: 'async'
+        defaultAttribute: 'defer'
       }),
 
       new SpriteLoaderPlugin({
@@ -182,6 +183,7 @@ module.exports = async () => {
   if (isProduction) {
     config.plugins.push(new CleanWebpackPlugin());
     config.plugins.push(new CssoWebpackPlugin());
+    config.plugins.push(new OptimizeCssAssetsPlugin());
     config.plugins.push(new WorkboxPlugin.GenerateSW({
       exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
       clientsClaim: true,
@@ -190,7 +192,13 @@ module.exports = async () => {
 
     config.optimization.splitChunks = {
       chunks: 'all',
-      minSize: 0
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
     };
   }
 

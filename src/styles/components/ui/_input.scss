@@ -1,0 +1,21 @@
+.input {
+  height: var(--input-height);
+  padding-left: var(--space-1);
+  padding-right: var(--space-1);
+  background: var(--color-light-600);
+  border: 1px solid var(--color-light-600);
+  border-radius: var(--radius-5);
+  outline: none;
+  color: var(--color-light-100);
+  font-weight: 600;
+  transition: .2s ease;
+  transition-property: box-shadow;
+
+  &.is-transparent {
+    background: transparent;
+
+    &:hover, &:active, &:focus {
+      box-shadow: var(--shadow-light-1)
+    }
+  }
+}

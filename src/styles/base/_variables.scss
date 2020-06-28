@@ -1,10 +1,67 @@
-:root {
-  --page-background: linear-gradient(170deg, #624F42 0%, #4F3F2F 50%, #1C1C1C 150%), linear-gradient(to top, #fff 0%, #000 200%);
+$color-red: #FF3D57;
+$color-orange: #FF8A48;
+$color-yellow: #FDBF5E;
+$color-green: #09B66D;
+$color-cyan: #22CCE2;
+$color-blue: #0037FA;
 
-  --color-white: #fff;
-  --color-gray-800: #999;
+:root {
+  --page-background: var(--color-light-600);
+
+  --color-white: #ffffff;
+
+  --color-text: var(--color-dark-100);
+
+  --color-light-100: #44566C;
+  --color-light-200: #8697A8;
+  --color-light-300: #B3C0CE;
+  --color-light-400: #EAEDF0;
+  --color-light-500: #EFF4F8;
+  --color-light-600: #F8FAFB;
+
+  --color-dark-100: #1F2935;
+  --color-dark-200: #15232E;
+  --color-dark-300: #333E4C;
+  --color-dark-400: #737781;
+  --color-dark-500: #E5E5E5;
+
+  --color-red: #{$color-red};
+  --color-red-darker: #{darken($color-red, 3)};
+  --color-orange: #{$color-orange};
+  --color-orange-darker: #{darken($color-orange, 3)};
+  --color-yellow: #{$color-yellow};
+  --color-yellow-darker: #{darken($color-yellow, 3)};
+  --color-green: #{$color-green};
+  --color-green-darker: #{darken($color-green, 3)};
+  --color-cyan: #{$color-cyan};
+  --color-cyan-darker: #{darken($color-cyan, 3)};
+  --color-blue: #{$color-blue};
+  --color-blue-darker: #{darken($color-blue, 3)};
+
+  --shadow-light-1: 0px 8px 16px rgba(169, 194, 209, 0.1), 0px 4px 4px rgba(169, 194, 209, 0.05);
+  --shadow-light-2: 0px 12px 16px rgba(169, 194, 209, 0.1), 0px 2px 4px rgba(169, 194, 209, 0.05);
+  --shadow-light-3: 0px 8px 16px rgba(169, 194, 209, 0.05), 0px 32px 32px rgba(169, 194, 209, 0.1);
+
+  --shadow-dark-1: 0px 8px 16px rgba(0, 0, 0, 0.2), 0px 4px 4px rgba(0, 0, 0, 0.05);
+  --shadow-dark-2: 0px 12px 16px rgba(0, 0, 0, 0.2), 0px 2px 4px rgba(0, 0, 0, 0.05);
+
+  --radius-5: 5px;
+  --radius-10: 10px;
+  --radius-circle: 50%;
+
+  --space: 0px;
+  --space-05: .5rem;
+  --space-1: 1rem;
+  --space-125: 1.25rem;
+  --space-15: 1.5rem;
+  --space-2: 2rem;
+  --space-3: 3rem;
+  --space-4: 4rem;
+  --space-5: 5rem;
+
+  --input-height: 40px;
 }
 
 :root.theme-white {
-  --color-white: #000;
+  --color-white: var(--color-black);
 }

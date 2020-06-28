@@ -7,10 +7,13 @@
     "build": "cross-env NODE_ENV=production webpack --pretty"
   },
   "author": "frammmm",
-  "dependencies": {},
+  "dependencies": {
+    "animejs": "^3.2.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
+    "@types/animejs": "^3.1.1",
     "@types/source-map": "0.5.2",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
@@ -33,6 +36,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "minimist": "^1.2.5",
     "node-sass": "^4.13.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "preload-webpack-plugin": "3.0.0-beta.4",
     "pug": "^2.0.4",
