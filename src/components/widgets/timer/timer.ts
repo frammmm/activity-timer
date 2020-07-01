@@ -82,13 +82,11 @@ export default class Timer {
 
   onTimerStart = (): void => {
     this.setInputsDisabled(true);
-    this.setToggleButtonDisabled(true);
     this.setToggleButtonIcon(this.icons.pause);
   }
 
   onTimerStop = (): void => {
     this.setInputsDisabled(false);
-    this.setToggleButtonDisabled(false);
     this.setToggleButtonIcon(this.icons.play);
   }
 
@@ -99,10 +97,6 @@ export default class Timer {
   setInputsDisabled (value): void {
     this.activityDurationInput.disabled = value;
     this.restDurationInput.disabled = value;
-  }
-
-  setToggleButtonDisabled (value): void {
-    this.toggleButton.disabled = value;
   }
 
   setToggleButtonIcon (icon: SVGElement): void {
