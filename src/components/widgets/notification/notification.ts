@@ -17,6 +17,10 @@ export default class Notification {
   }
 
   static create (content) {
-    new window.Notification(content);
+    if (Notification.hasPermission) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification(content);
+      });
+    }
   }
 }
