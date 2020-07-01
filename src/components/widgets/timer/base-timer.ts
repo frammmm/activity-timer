@@ -118,7 +118,7 @@ export default class BaseTimer implements ITimer {
   }
 
   reset = (): void => {
-    if (this.state === TimerState.STOP) {
+    if ([TimerState.STOP, TimerState.INITIAL].includes(this.state)) {
       return;
     }
 
