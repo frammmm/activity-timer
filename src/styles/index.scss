@@ -25,6 +25,10 @@ body {
   flex-grow: 1;
   min-height: 100%;
   background: var(--page-background);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
 }
 
 a {
@@ -35,4 +39,8 @@ a {
 input, button, select, optgroup, textarea {
   font-size: inherit;
   font-family: inherit;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }
