@@ -1,3 +1,5 @@
+import Notification from '../notification/notification';
+
 import SVGTimer from './svg-timer';
 
 import { DurationType, ITimer } from './types';
@@ -37,6 +39,7 @@ export default class Timer {
   bindEventHandlers (): void {
     this.timer.eventBus.on(['play', 'restart'], this.onTimerStart);
     this.timer.eventBus.on(['stop', 'pause', 'reset'], this.onTimerStop);
+    this.timer.eventBus.on('stop', this.onTimerEnd);
 
     this.activityDurationInput.addEventListener('input', this.onActivityDurationInputChange);
     this.restDurationInput.addEventListener('input', this.onRestDurationInputChange);
@@ -73,11 +76,11 @@ export default class Timer {
   }
 
   onActivityDurationInputChange = (event): void => {
-    this.timer.setDuration(DurationType.ACTIVITY_DURATION, parseInt(event.target.value) * 60000);
+    this.timer.setDuration(DurationType.ACTIVITY_DURATION, parseFloat(event.target.value) * 60000);
   }
 
   onRestDurationInputChange = (event): void => {
-    this.timer.setDuration(DurationType.REST_DURATION, parseInt(event.target.value) * 60000);
+    this.timer.setDuration(DurationType.REST_DURATION, parseFloat(event.target.value) * 60000);
   }
 
   onTimerStart = (): void => {
@@ -88,6 +91,15 @@ export default class Timer {
   onTimerStop = (): void => {
     this.setInputsDisabled(false);
     this.setToggleButtonIcon(this.icons.play);
+  }
+
+  onTimerEnd = (): void => {
+    Notification.create(`Time's up!`, {
+      actions: [{
+        action: 'run-next-stage',
+        title: 'Continue'
+      }]
+    });
   }
 
   onPlayButtonClick = (): void => {

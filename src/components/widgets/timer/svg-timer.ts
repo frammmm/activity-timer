@@ -40,7 +40,6 @@ export default class SVGTimer extends BaseTimer {
     this.eventBus.on('reset', this.onReset);
     this.eventBus.on('restart', this.onRestart);
     this.eventBus.on('start', this.onStart);
-    this.eventBus.on('stop', this.onStop);
   }
 
   createSvg (): void {
@@ -174,9 +173,5 @@ export default class SVGTimer extends BaseTimer {
       easing: 'easeOutQuart',
       duration: 500,
     });
-  }
-
-  onStop = (): void => {
-    Notification.create(`Time's up!`);
   }
 }
