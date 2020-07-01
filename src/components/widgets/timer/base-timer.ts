@@ -118,6 +118,10 @@ export default class BaseTimer implements ITimer {
   }
 
   reset = (): void => {
+    if (this.state === TimerState.STOP) {
+      return;
+    }
+
     this.timeLeft = this.timeLeft - (Date.now() - this.startTime);
 
     this.state = TimerState.STOP;
@@ -194,5 +198,7 @@ export default class BaseTimer implements ITimer {
 
   setDuration (type: DurationType, value: number): void {
     this.settingsProxy[type] = value;
+
+    this.reset();
   }
 }
