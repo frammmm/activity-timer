@@ -30,16 +30,42 @@
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: calc(50% + 27.5px);
+    top: calc(50% + 51.25px);
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
   }
 
+  &-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &-input {
-    margin-top: var(--space-1);
     font-size: 1.5rem;
     width: 120px;
+
+    &:not(.is-bottom) {
+      margin-top: var(--space-1);
+    }
+
+    &.is-bottom {
+      margin-top: var(--space-05);
+      transform: translateY(calc(100% + var(--space-1))) scale(.7);
+
+      & + .timer-input {
+        transform: translateY(calc(-100% - var(--space-05)));
+      }
+
+      &:focus {
+        transform: translateY(var(--space-05));
+
+        & + .timer-input {
+          transform: translateY(0) scale(.7);
+        }
+      }
+    }
   }
 
   &-canvas {
