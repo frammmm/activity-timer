@@ -16,10 +16,10 @@ export default class Notification {
     this.hasPermission = permission === 'granted';
   }
 
-  static create (content) {
+  static create (content: string, options: NotificationOptions) {
     if (Notification.hasPermission) {
       navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification(content);
+        registration.showNotification(content, options);
       });
     }
   }
