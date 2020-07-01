@@ -8,11 +8,16 @@
   outline: none;
   color: var(--color-light-100);
   font-weight: 600;
-  transition: .2s ease;
-  transition-property: box-shadow;
+  transition: .15s ease;
+  transition-property: box-shadow, color, transform;
+
+  &[disabled] {
+    color: var(--color-light-300);
+  }
 
   &.is-transparent {
     background: transparent;
+    border-color: var(--color-light-500);
 
     &:hover, &:active, &:focus {
       box-shadow: var(--shadow-light-1)
