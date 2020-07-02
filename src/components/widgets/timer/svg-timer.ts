@@ -3,7 +3,8 @@ import anime from 'animejs';
 import { Logger, polarToCartesian } from '../../../utils';
 
 import BaseTimer from './base-timer';
-import Notification from '../notification/notification';
+
+import { ITimerStages } from './types';
 
 interface ISvgSize {
   width: number;
@@ -166,12 +167,19 @@ export default class SVGTimer extends BaseTimer {
     });
   }
 
-  onStart = (): void => {
+  onStart = (stages: ITimerStages): void => {
+    this.setTimerPathTheme(stages.current.theme, stages.prev.theme);
+
     anime({
       targets: this.svgTimerPath,
       strokeWidth: [0, 20],
       easing: 'easeOutQuart',
       duration: 500,
     });
+  }
+
+  setTimerPathTheme (theme, prevTheme): void {
+    this.svgTimerPath.classList.remove(`is-${prevTheme}`);
+    this.svgTimerPath.classList.add(`is-${theme}`);
   }
 }

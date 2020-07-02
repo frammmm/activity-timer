@@ -9,9 +9,9 @@ export enum TimerState {
   'STOP'
 }
 
-export enum DurationType {
-  'ACTIVITY_DURATION' = 'ACTIVITY_DURATION',
-  'REST_DURATION' = 'REST_DURATION'
+export enum StageType {
+  'ACTIVITY' = 'ACTIVITY',
+  'REST' = 'REST'
 }
 
 export interface ITimer {
@@ -28,9 +28,21 @@ export interface ITimer {
   play(): void;
   stop(): void;
   toggle(): void;
-  setDuration(type: DurationType, value: number): void;
+  setDuration(type: StageType, value: number): void;
 }
 
 export type TTimerDurationSettings = {
-  [type in DurationType]: number;
+  [type in StageType]: number;
+}
+
+export interface ITimerStage {
+  key: StageType;
+  name: string;
+  duration: number;
+  theme: string;
+}
+
+export interface ITimerStages {
+  current: ITimerStage;
+  prev: ITimerStage;
 }

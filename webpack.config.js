@@ -131,7 +131,7 @@ module.exports = async () => {
 
     plugins: [
       new FaviconsWebpackPlugin({
-        logo: './src/assets/img/logo.png',
+        logo: './src/assets/img/logo.svg',
         favicons: {
           icons: {
             android: false,

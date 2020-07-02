@@ -2,7 +2,7 @@ import Notification from '../notification/notification';
 
 import SVGTimer from './svg-timer';
 
-import { DurationType, ITimer } from './types';
+import { ITimer, ITimerStages, StageType } from './types';
 
 
 export const TimerSelector = '.timer';
@@ -14,15 +14,19 @@ export default class Timer {
     elements.forEach(element => new Timer(element));
   }
 
+  activityDuration: HTMLInputElement;
   activityDurationInput: HTMLInputElement;
+  restDuration: HTMLInputElement;
   restDurationInput: HTMLInputElement;
   icons: { [key: string]: SVGElement } = {};
   timer: ITimer;
   toggleButton: HTMLButtonElement;
 
   constructor(element: Element) {
-    this.activityDurationInput = element.querySelector('.js-timer-activity-duration');
-    this.restDurationInput = element.querySelector('.js-timer-rest-duration');
+    this.activityDuration = element.querySelector('.js-timer-activity-duration');
+    this.activityDurationInput = element.querySelector('.js-timer-activity-duration input');
+    this.restDuration = element.querySelector('.js-timer-rest-duration');
+    this.restDurationInput = element.querySelector('.js-timer-rest-duration input');
     this.toggleButton = element.querySelector('.js-timer-toggle') as HTMLButtonElement;
 
     this.timer = new SVGTimer(element);
@@ -37,8 +41,9 @@ export default class Timer {
   }
 
   bindEventHandlers (): void {
-    this.timer.eventBus.on(['play', 'restart'], this.onTimerStart);
+    this.timer.eventBus.on(['play', 'restart'], this.onTimerPlay);
     this.timer.eventBus.on(['stop', 'pause', 'reset'], this.onTimerStop);
+    this.timer.eventBus.on('start', this.onTimerStart);
     this.timer.eventBus.on('stop', this.onTimerEnd);
 
     this.activityDurationInput.addEventListener('input', this.onActivityDurationInputChange);
@@ -76,16 +81,21 @@ export default class Timer {
   }
 
   onActivityDurationInputChange = (event): void => {
-    this.timer.setDuration(DurationType.ACTIVITY_DURATION, parseFloat(event.target.value) * 60000);
+    this.timer.setDuration(StageType.ACTIVITY, parseFloat(event.target.value) * 60000);
   }
 
   onRestDurationInputChange = (event): void => {
-    this.timer.setDuration(DurationType.REST_DURATION, parseFloat(event.target.value) * 60000);
+    this.timer.setDuration(StageType.REST, parseFloat(event.target.value) * 60000);
   }
 
-  onTimerStart = (): void => {
+  onTimerPlay = (): void => {
     this.setInputsDisabled(true);
     this.setToggleButtonIcon(this.icons.pause);
+  }
+
+  onTimerStart = (stages: ITimerStages): void => {
+    this.setActiveInput(stages.current.key);
+    this.setToggleButtonTheme(stages.current.theme, stages.prev.theme);
   }
 
   onTimerStop = (): void => {
@@ -106,9 +116,22 @@ export default class Timer {
     this.timer.toggle();
   }
 
+  setActiveInput (key: StageType): void {
+    const currentInput = key === StageType.ACTIVITY ? this.activityDuration : this.restDuration;
+    const prevInput = key === StageType.REST ? this.activityDuration : this.restDuration;
+
+    prevInput.classList.remove('is-active');
+    currentInput.classList.add('is-active');
+  }
+
   setInputsDisabled (value): void {
     this.activityDurationInput.disabled = value;
     this.restDurationInput.disabled = value;
+  }
+
+  setToggleButtonTheme (theme, prevTheme): void {
+    this.toggleButton.classList.remove(`is-${prevTheme}`);
+    this.toggleButton.classList.add(`is-${theme}`);
   }
 
   setToggleButtonIcon (icon: SVGElement): void {
@@ -117,7 +140,7 @@ export default class Timer {
   }
 
   setValues (): void {
-    this.activityDurationInput.value = `${this.timer.settings.ACTIVITY_DURATION / 60000}m`;
-    this.restDurationInput.value = `${this.timer.settings.REST_DURATION / 60000}m`;
+    this.activityDurationInput.value = `${this.timer.settings.ACTIVITY / 60000}m`;
+    this.restDurationInput.value = `${this.timer.settings.REST / 60000}m`;
   }
 }

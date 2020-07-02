@@ -43,8 +43,15 @@
   }
 
   &-input {
-    font-size: 1.5rem;
-    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform .2s ease;
+
+    input {
+      font-size: 1.5rem;
+      width: 120px;
+    }
 
     &:not(.is-bottom) {
       margin-top: var(--space-1);
@@ -58,7 +65,8 @@
         transform: translateY(calc(-100% - var(--space-05)));
       }
 
-      &:focus {
+      &.is-active,
+      &:focus-within {
         transform: translateY(var(--space-05));
 
         & + .timer-input {
@@ -87,10 +95,33 @@
     }
 
     &__filler {
-      stroke: var(--color-orange);
       stroke-linecap: round;
       stroke-width: 20px;
       transition: stroke-dashoffset linear;
+
+      &.is-red {
+        stroke: var(--color-red);
+      }
+
+      &.is-orange {
+        stroke: var(--color-orange);
+      }
+
+      &.is-yellow {
+        stroke: var(--color-yellow);
+      }
+
+      &.is-green {
+        stroke: var(--color-green);
+      }
+
+      &.is-cyan {
+        stroke: var(--color-cyan);
+      }
+
+      &.is-blue {
+        stroke: var(--color-blue);
+      }
     }
   }
 }

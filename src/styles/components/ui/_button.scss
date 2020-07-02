@@ -87,6 +87,7 @@
       bottom: 0;
       border-radius: inherit;
       opacity: .5;
+      transition: box-shadow .2s ease;
     }
 
     &.is-red {

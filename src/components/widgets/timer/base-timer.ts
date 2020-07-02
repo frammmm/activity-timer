@@ -1,6 +1,6 @@
 import { EventBus, IEventBus, KeyCodes, Logger } from '../../../utils';
 
-import { DurationType, ITimer, TimerState, TTimerDurationSettings } from './types';
+import { ITimer, ITimerStages, StageType, TimerState, TTimerDurationSettings } from './types';
 
 
 export default class BaseTimer implements ITimer {
@@ -10,6 +10,7 @@ export default class BaseTimer implements ITimer {
   eventBus: IEventBus;
   settings: TTimerDurationSettings;
   settingsProxy: TTimerDurationSettings;
+  stages: ITimerStages;
   startTime: number;
   state: TimerState = TimerState.INITIAL;
   timeLeft: number;
@@ -32,11 +33,27 @@ export default class BaseTimer implements ITimer {
       set: (target, property, value): boolean => {
         target[property] = value;
 
+        this.updateStagesDuration();
         this.saveUserSettings();
 
         return true;
       }
     });
+
+    this.stages = {
+      current: {
+        key: StageType.ACTIVITY,
+        name: 'Activity',
+        duration: this.settings[StageType.ACTIVITY],
+        theme: 'orange'
+      },
+      prev: {
+        key: StageType.REST,
+        name: 'Rest',
+        duration: this.settings[StageType.REST],
+        theme: 'green'
+      }
+    };
   }
 
   _bindEventHandlers (): void {
@@ -56,7 +73,7 @@ export default class BaseTimer implements ITimer {
   onWindowKeyDown = (event: KeyboardEvent): void => {
     const { keyCode } = event;
 
-    const key = Object.entries(KeyCodes).find(([ key, code ]) => code === keyCode)[0];
+    const key = Object.entries(KeyCodes).find((entry) => entry[1] === keyCode)[0];
 
     Logger.log('Timer', event, key);
 
@@ -97,16 +114,19 @@ export default class BaseTimer implements ITimer {
       await new Promise(resolve => {
         this.eventBus.emit('restart', () => {
           this.state = TimerState.INITIAL;
+
+          this.switchStages();
+
           resolve();
         });
       });
     }
 
     if (this.state !== TimerState.PAUSE) {
-      this.timeLeft = this.settings[DurationType.ACTIVITY_DURATION];
-      this.timerDuration = this.settings[DurationType.ACTIVITY_DURATION];
+      this.timeLeft = this.stages.current.duration;
+      this.timerDuration = this.stages.current.duration;
 
-      this.eventBus.emit('start');
+      this.eventBus.emit('start', this.stages);
     }
 
     this.startTime = Date.now();
@@ -167,8 +187,8 @@ export default class BaseTimer implements ITimer {
 
   get defaultSettings (): TTimerDurationSettings {
     return {
-      [DurationType.ACTIVITY_DURATION]: 1000 * 60 * 30,
-      [DurationType.REST_DURATION]: 1000 * 60 * 10
+      [StageType.ACTIVITY]: 1000 * 60 * 30,
+      [StageType.REST]: 1000 * 60 * 10
     };
   }
 
@@ -196,9 +216,31 @@ export default class BaseTimer implements ITimer {
     return JSON.stringify(this.settings);
   }
 
-  setDuration (type: DurationType, value: number): void {
+  setDuration (type: StageType, value: number): void {
     this.settingsProxy[type] = value;
 
     this.reset();
+  }
+
+  switchStages (): void {
+    const stages = { ...this.stages };
+
+    this.stages = {
+      current: stages.prev,
+      prev: stages.current
+    };
+  }
+
+  updateStagesDuration (): void {
+    this.stages = {
+      current: {
+        ...this.stages.current,
+        duration: this.settings[this.stages.current.key]
+      },
+      prev: {
+        ...this.stages.prev,
+        duration: this.settings[this.stages.prev.key]
+      }
+    };
   }
 }
