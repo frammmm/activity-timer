@@ -1,5 +1,4 @@
 @import 'base/reset';
-@import 'base/fonts';
 @import 'base/variables';
 
 @import 'utils/display';
@@ -13,7 +12,7 @@
 
 html {
   color: var(--color-white);
-  font-family: 'Roboto', sans-serif;
+  font-family: system-ui,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
   font-size: 15px;
   font-variation-settings: 'wdth' 400, 'wght' 98;
   height: 100%;

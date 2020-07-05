@@ -164,17 +164,6 @@ module.exports = async () => {
         chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:16].css'
       }),
 
-      // Preload fonts
-      new PreloadWebpackPlugin({
-        include: 'allAssets',
-        fileWhitelist: [/(KFOmCnqEu92Fr1Mu4mxK|KFOlCnqEu92Fr1MmWUlfBBc4)/]
-      }),
-
-      // Preload webpack bundles
-      new PreloadWebpackPlugin({
-        include: 'initial'
-      }),
-
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer'
       }),
