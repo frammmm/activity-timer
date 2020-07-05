@@ -57,18 +57,8 @@ export default class BaseTimer implements ITimer {
   }
 
   _bindEventHandlers (): void {
-    // window.addEventListener('blur', this.onWindowBlur);
-    // window.addEventListener('focus', this.onWindowFocus);
     window.addEventListener('keydown', this.onWindowKeyDown);
   }
-
-  // onWindowBlur = (event: Event): void => {
-  //   Logger.log('Blur', event);
-  // }
-  //
-  // onWindowFocus = (event: FocusEvent): void => {
-  //   Logger.log('Focus', event);
-  // }
 
   onWindowKeyDown = (event: KeyboardEvent): void => {
     const { keyCode } = event;
@@ -143,7 +133,6 @@ export default class BaseTimer implements ITimer {
     }
 
     this.timeLeft = this.timeLeft - (Date.now() - this.startTime);
-
     this.state = TimerState.STOP;
 
     this.resetTimeout();

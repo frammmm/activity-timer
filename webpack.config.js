@@ -165,10 +165,15 @@ module.exports = async () => {
       }),
 
       // Preload fonts
-      // new PreloadWebpackPlugin({
-      //   include: 'allAssets',
-      //   fileBlacklist: [/^(?!.*woff2).*$/]
-      // }),
+      new PreloadWebpackPlugin({
+        include: 'allAssets',
+        fileWhitelist: [/(KFOmCnqEu92Fr1Mu4mxK|KFOlCnqEu92Fr1MmWUlfBBc4)/]
+      }),
+
+      // Preload webpack bundles
+      new PreloadWebpackPlugin({
+        include: 'initial'
+      }),
 
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer'

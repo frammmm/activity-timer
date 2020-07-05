@@ -119,8 +119,6 @@ export default class SVGTimer extends BaseTimer {
 
   onPause = (): void => {
     this.svgTimerPath.style.strokeDashoffset = `${this.strokeDashOffset * this.timeLeftPercentage}`;
-
-    // this.animation.pause();
   }
 
   onPlay = (): void => {
