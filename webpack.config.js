@@ -165,6 +165,11 @@ module.exports = async () => {
         chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:16].css'
       }),
 
+      new PreloadWebpackPlugin({
+        include: 'initial',
+        fileWhitelist: [/.(js)$/]
+      }),
+
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer'
       }),
