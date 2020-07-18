@@ -7,6 +7,7 @@ const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const HtmlInlineCssWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -177,23 +178,24 @@ module.exports = async () => {
   if (isProduction) {
     config.plugins.push(new CleanWebpackPlugin());
     config.plugins.push(new CssoWebpackPlugin());
+    config.plugins.push(new HtmlInlineCssWebpackPlugin());
     config.plugins.push(new OptimizeCssAssetsPlugin());
     config.plugins.push(new WorkboxPlugin.GenerateSW({
-      exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
+      exclude: [/\.(?:ico|png|jpg|jpeg|svg)$/],
       clientsClaim: true,
       skipWaiting: true
     }));
 
-    config.optimization.splitChunks = {
-      chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all'
-        }
-      }
-    };
+    // config.optimization.splitChunks = {
+    //   chunks: 'all',
+    //   cacheGroups: {
+    //     vendor: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendor',
+    //       chunks: 'all'
+    //     }
+    //   }
+    // };
   }
 
   return config;
