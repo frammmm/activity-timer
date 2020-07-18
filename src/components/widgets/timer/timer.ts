@@ -113,6 +113,8 @@ export default class Timer {
   }
 
   onPlayButtonClick = (): void => {
+    Notification.init();
+
     this.timer.toggle();
   }
 

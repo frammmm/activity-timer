@@ -1,12 +1,10 @@
 import '@/styles/index.scss';
 
-import Notification from './components/widgets/notification/notification';
 import Timer from './components/widgets/timer/timer';
 
 import { isProduction } from './utils/variables';
 
 const modules = [
-  Notification,
   Timer
 ];
 

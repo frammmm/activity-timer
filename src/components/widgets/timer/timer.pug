@@ -1,11 +1,11 @@
 mixin timer
   .timer.is-hidden
     .timer-actions
-      button.button.is-icon.is-round.is-large.is-orange.with-shadow.text-white.js-timer-toggle
+      button.button.is-icon.is-round.is-large.is-orange.with-shadow.text-white.js-timer-toggle(aria-label="play")
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14" height="16" style="margin-left: 1px"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>
 
       .timer-inputs
         .timer-input.is-bottom.js-timer-rest-duration
-          input.input.is-transparent.text-center
+          input.input.is-transparent.text-center(title="Rest duration" name="rest-duration")
         .timer-input.js-timer-activity-duration
-          input.input.is-transparent.text-center
+          input.input.is-transparent.text-center(title="Activity duration" name="activity-duration")
